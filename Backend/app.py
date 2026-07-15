@@ -132,19 +132,7 @@ for intent in intents:
         _tags.append(intent['tag'])
 _responses = { intent['tag']: intent.get('responses', []) for intent in intents }
 
-# this pulls out your four follow-up questions for the retrieval flow:
-#_followups = _responses.get('followups_retrieval', [])
-#_sugg_greet = _responses.get('suggestion_greeting', [])
 
-# ─── Retrieval JSON (for tips) ──────────────────────────────────
-# with open(os.path.join(base, 'Models', 'retrieval.json'), 'r', encoding='utf-8') as f:
-#     retr_intents   = json.load(f)['intents']
-# retr_responses = { it['tag']: it['responses'] for it in retr_intents }
-# _followups     = retr_responses.pop('followups_retrieval', [])
-
-# ensure your suggestion classifier is loaded
-# suggestion_clf = joblib.load(os.path.join(base, 'Models', 'suggestion_clf.pkl'))
-# app.logger.info(f"[Startup] suggestion tags = {suggestion_clf.classes_}")
 
 
 embedder = SentenceTransformer('all-MiniLM-L6-v2')
@@ -159,34 +147,6 @@ def rule_response(text):
     tag = _tags[best_idx]
     return random.choice(_responses[tag])
 
-# # ─── Retrieval-based Engine ───────────────────────────────────────
-# tokenizer = joblib.load(os.path.join(base, 'Models', 'tokenizer_t.pkl'))
-# ret_model = load_model(os.path.join(base, 'Models', 'model-v1.h5'))
-# _, EXPECTED_LEN = ret_model.input_shape
-
-# def retrieval_response(text):
-#     txt = text.lower()
-#     for word in ("sad","depressed","down","blue"):
-#         if word in txt:
-#             return ("I’m really sorry you’re feeling that way. "
-#                     "Would you like to talk more about what’s making you feel sad?")
-#     seq = tokenizer.texts_to_sequences([text])
-#     seq = pad_sequences(seq, maxlen=EXPECTED_LEN)
-#     pred = ret_model.predict(seq)
-#     tag = _tags[int(np.argmax(pred[0]))]
-#     return random.choice(_responses[tag])
-
-
-# ─── 0) Load your fine-tuned RL model once ─────────────────────────────
-#BASE      = os.path.dirname(os.path.abspath(__file__))
-#MODEL_DIR = os.path.join(BASE, "a2c_quick_cpu_ft_smart")  # or your final folder
-#device    = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-#tokenizer = AutoTokenizer.from_pretrained(MODEL_DIR, local_files_only=True)
-#model     = AutoModelForCausalLM.from_pretrained(MODEL_DIR, local_files_only=True).to(device)
-#model.eval()
-# ─── Google AI Studio / Gemini setup ─────────────────────────────────────────
-# Export your Studio API key: export STUDIO_API_KEY="YOUR_KEY_HERE"
 
 
 few_shot = """
@@ -246,7 +206,7 @@ Bot:
 
 
 
-# ─── placeholder cleanup helper ───────────────────────────────────────────────
+#placeholder cleanup helper 
 def clean_placeholders(text: str) -> str:
     return (
         text
@@ -254,7 +214,7 @@ def clean_placeholders(text: str) -> str:
         .replace("_period_", ".")
         .replace("_questionmark_", "?")
         .replace("_exclamation_", "!")
-        # add more mappings as needed
+     
     )
 
 
@@ -262,82 +222,9 @@ def clean_placeholders(text: str) -> str:
 
 
 
-# def rl_empathy_response(user_text: str) -> str:
-#     # build prompt (ensure you have a few_shot template defined)
-#     prompt = few_shot.format(user_text=user_text)
-#     inputs = tokenizer(
-#         prompt,
-#         return_tensors="pt",
-#         truncation=True,
-#         max_length=512
-#     ).to(device)
-
-#     # generate with beams
-#     out = model.generate(
-#         **inputs,
-#         max_new_tokens=60,
-#         num_beams=3,
-#         early_stopping=True,
-#         no_repeat_ngram_size=3,
-#         repetition_penalty=1.2,
-#         pad_token_id=tokenizer.eos_token_id,
-#         eos_token_id=tokenizer.eos_token_id,
-#     )
-
-#     # grab only the new tokens
-#     gen_ids = out[0][inputs.input_ids.shape[-1]:]
-#     raw = tokenizer.decode(
-#         gen_ids,
-#         skip_special_tokens=True,
-#         clean_up_tokenization_spaces=True
-#     )
-
-#     # clean up placeholders & strip
-#     text = clean_placeholders(raw).split("\n", 1)[0].strip()
-
-#     if not text:
-#         text = "I’m here to listen—could you tell me more about how this feels?"
-
-#     # ensure it ends with punctuation
-#     if text[-1] not in ".!?":
-#         text += "."
-
-#     return text + " You’re not alone."
 
 
-
-
-
-# def estimate_severity(text: str) -> int:
-#     negs = sum(text.lower().count(w) for w in ["sad","anxious","hopeless","scared"])
-#     return min(10, max(6, negs * 2))
-
-# def do_triage_and_signoff(user_text: str, turns: int) -> str:
-#     cond     = session.get('condition','Self-Care Recommended')
-#     severity = estimate_severity(user_text)
-#     citation = "DSM-5 (APA, 2013, p.160)"
-#     return (
-#       f"Based on our chat and your questionnaire, it seems you may have **{cond}** "
-#       f"at a severity of **{severity}/10** ({citation}).  \n\n"
-#       "I strongly recommend you connect with a licensed therapist for further support."
-#     )
-
-
-
-
-
-# ─── Moderate-flow pipelines ────────────────────────────────────
-# condition_clf  = joblib.load(os.path.join(base, 'Models', 'condition_clf.pkl'))
-# #suggestion_clf = joblib.load(os.path.join(base, 'Models', 'suggestion_clf.pkl'))
-
-# def classify_condition(text):
-#     return condition_clf.predict([text])[0]
-
-# def classify_suggestion(ctx):
-#     return suggestion_clf.predict([ctx])[0]
-
-
-# ─── Questionnaire Definitions ───────────────────────────────────
+# Questionnaire Definitions
 QUESTIONS = [
     {'id':'q1','text':'1. Little interest or pleasure in doing things?'},
     {'id':'q2','text':'2. Feeling down, depressed, or hopeless?'},
@@ -385,12 +272,12 @@ def grade_severity(score, max_pts):
     if pct < 0.66: return 'Moderate'
     return 'Severe'
 
-# ─── Routes ─────────────────────────────────────────────────────────
+# Routes 
 @app.route('/', methods=['GET'], endpoint='landing')
 def landing():
     return render_template('landingpage.html')
 
-# ─── Authentication Routes ──────────────────────────────────────────────────
+# Authentication Routes 
 @app.route('/register', methods=['GET','POST'])
 def register():
     if current_user.is_authenticated:
@@ -408,7 +295,7 @@ def register():
 
 @app.route('/login', methods=['GET','POST'], endpoint='login')
 def login_view():
-    # If they’re already logged in, send them to landing
+
     if current_user.is_authenticated:
         return redirect(url_for('landing'))
 
@@ -418,7 +305,7 @@ def login_view():
         user     = User.query.filter_by(email=email).first()
         if user and user.check_password(password):
             login_user(user)
-            return redirect(url_for('landing'))     # ← only landing, not questionnaire
+            return redirect(url_for('landing'))     
         flash('Invalid credentials', 'danger')
 
     return render_template('login.html')
@@ -479,24 +366,17 @@ def questionnaire():
         else:
             session['condition'] = dominant
             session['total_score'] = total
-                # ─── Persist to results table ───────────────────────────
+                # Persist to results tableS
         r = Result(
             user_id   = current_user.id,
             condition = session['condition'],
             diagnosis = session['diagnosis'],
             score     = total   # <-- save it here
         )
-        # qr = QuestionnaireResponse(
-        #     user_id      = current_user.id,
-        #     answers_json = json.dumps(ans),
-        #     total_score  = total,
-        #     condition    = session['condition'],
-        #     diagnosis    = session['diagnosis'],
-        #     engine       = session['engine']
-        # )
+       
         db.session.add(r)
         db.session.commit()
-        # ─────────────────────────────────────────────────────────
+    \
         app.logger.info(f"[Router] Selected condition → {session['condition']}")
 
 
@@ -577,7 +457,7 @@ def chat():
 
 
 
-# ─── Data for rule-based suggestions & follow-ups ─────────────────────────────
+#  Data for rule-based suggestions & follow-ups 
 SUGGESTIONS = {
     "sad":      ["taking a short walk", "listening to uplifting music", "journaling your feelings"],
     "anxiety":  ["trying the 4–4–4 breathing exercise", "doing a 2-minute body-scan meditation", "grounding yourself by naming 5 things you see"],
@@ -595,7 +475,7 @@ FALLBACK_QUESTIONS = [
 YES_RESPONSES = ["yes","sure","okay","please","yep","yeah"]
 NO_RESPONSES  = ["no","not really","nah"]
 
-# ─── Helpers ──────────────────────────────────────────────────────────────────
+# Helpers 
 def next_suggestion(topic: str) -> str:
     """Return a tip for `topic` without repeating until exhausted."""
     pool = SUGGESTIONS.get(topic, GENERAL_TIPS)
@@ -669,7 +549,7 @@ def do_triage_and_signoff(user_text: str, turns: int) -> str:
     )
     return msg
 
-# ─── Chat endpoint ───────────────────────────────────────────────────────────
+#  Chat endpoint
 @app.route("/generative", methods=["GET","POST"])
 @login_required
 def rule_chat():
@@ -705,10 +585,10 @@ def rule_chat():
 
 
 
-# ─── Retrieval-only endpoint ─────────────────────────────────────────
-# ─── Disorder-specific retrieval (moderate symptoms) ────────────────
-# ─── MCQ‐Mapping Retrieval Flow ──────────────────────────────────────
-# ─── MCQ‐Mapping Retrieval Flow ──────────────────────────────────
+#  Retrieval-only endpoint
+#  Disorder-specific retrieval (moderate symptoms) 
+#  MCQ‐Mapping Retrieval Flow 
+#  MCQ‐Mapping Retrieval Flow 
 RETRIEVAL_QS = [
   {'id':'q1','text':"When do these symptoms bother you most?",    'options':["Morning","Afternoon","Evening","Night"]},
   {'id':'q2','text':"Which activity makes you feel worse?",       'options':["Work/School","Social events","Being alone","Physical tasks"]},
@@ -776,11 +656,6 @@ def retrieve():
 # map diagnosis labels to numbers for plotting
 DIAG_SEVERITY = {'None':0,'Mild':1,'Moderate':2,'Severe':3}
 
-# ─── Dashboard API + view ───────────────────────────────────────────────────
-
-# from your_app import db, Result  # adjust import as needed
-
-# … your existing config, user/login, models, etc. …
 
 @app.route('/api/results')
 @login_required
@@ -826,8 +701,8 @@ def dashboard():
 
 
 
-# Hard-coded API token (for personal use only)
-HF_TOKEN = "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"
+# Hard-coded API token 
+HF_TOKEN = "YOUR HUGGING FACE API KEY"
 @app.route("/cohere_chat", methods=["GET", "POST"])
 def cohere_chat():
     if request.method == "GET":
