@@ -1,0 +1,10 @@
+Flask==3.0.3
+Flask-SQLAlchemy==3.1.1
+Flask-Login==0.6.3
+Flask-Migrate==4.1.0
+Werkzeug==3.0.1
+scikit-learn==1.3.2
+joblib==1.3.2
+typing-extensions==4.5.0           # <4.6.0 to satisfy TF-Intel
+SQLAlchemy<2.0.40,>=2.0.0          # <=2.0.39 so it won’t insist on typing-extensions≥4.6
+tensorflow-intel==2.13.0
