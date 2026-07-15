@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat with Us</title>
+  <style>
+    body{margin:0;background:#f2f2f2;font-family:sans-serif}
+    .chat-container{max-width:600px;margin:2rem auto;background:#fff;
+      border-radius:12px;box-shadow:0 4px 8px rgba(0,0,0,0.1);
+      display:flex;flex-direction:column;height:70vh;overflow:hidden}
+    #messages{flex:1;padding:1rem;overflow-y:auto;display:flex;
+      flex-direction:column;gap:.5rem}
+    .message{max-width:75%;padding:.75rem 1rem;border-radius:20px;
+      word-break:break-word}
+    .bot{align-self:flex-start;background:#e0e0e0;color:#333}
+    .you{align-self:flex-end;background:#9575cd;color:#fff}
+    #chat-form{display:flex;border-top:1px solid #ddd}
+    #user-input{flex:1;border:none;padding:1rem;font-size:1rem}
+    #chat-form button{background:#5e35b1;border:none;color:#fff;
+      padding:0 1.5rem;cursor:pointer;font-size:1rem}
+    #chat-form button:hover{background:#512da8}
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div id="messages">
+      <div class="message bot">🤖 Hi! I’m here to listen.</div>
+    </div>
+    <form id="chat-form">
+      <input id="user-input" placeholder="Type here…" autocomplete="off"/>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+  <script>
+    const form=document.getElementById('chat-form'),
+          input=document.getElementById('user-input'),
+          msgs=document.getElementById('messages');
+    form.addEventListener('submit',async e=>{
+      e.preventDefault();
+      const text=input.value.trim(); if(!text)return;
+      append('you',text); input.value='';
+      const wait=append('bot','…');
+      try{
+        const res=await fetch('/cohere_chat',{method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({message:text})});
+        const {reply}=await res.json();
+        wait.textContent=reply;
+      }catch{
+        wait.textContent='⚠️ Something went wrong.';
+      }
+      msgs.scrollTop=msgs.scrollHeight;
+    });
+    function append(role,text){
+      const d=document.createElement('div');
+      d.className='message '+role; d.textContent=text;
+      msgs.appendChild(d); return d;
+    }
+  </script>
+</body>
+</html>

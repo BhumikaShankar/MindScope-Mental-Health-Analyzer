@@ -1,0 +1,69 @@
+<!-- templates/retrieval.html -->
+{% extends 'base.html' %}
+{% block content %}
+<a href="{{ url_for('landing') }}" class="btn-back">← Back to Home</a>
+<div class="flex flex-col h-[75vh] bg-white p-4 rounded-2xl shadow-lg">
+  <div id="messages" class="flex-1 overflow-auto space-y-4 mb-4">
+    <div class="p-3 rounded-2xl bg-green-100 text-green-900 max-w-xs">
+      {{ question }}
+    </div>
+  </div>
+  <div id="options" class="flex flex-wrap gap-2">
+    {% for opt in options %}
+      <button class="opt-btn bg-indigo-600 text-white px-4 py-2 rounded">
+        {{ opt }}
+      </button>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  document.getElementById('options').addEventListener('click', async e => {
+    if (!e.target.classList.contains('opt-btn')) return;
+    const btns = [...document.querySelectorAll('.opt-btn')],
+          idx  = btns.indexOf(e.target),
+          txt  = e.target.textContent,
+          cont = document.getElementById('messages');
+
+    // show user choice
+    cont.insertAdjacentHTML('beforeend',
+      `<div class="flex justify-end">
+         <div class="p-3 rounded-2xl bg-indigo-500 text-white max-w-xs">${txt}</div>
+       </div>`);
+
+    const res = await fetch('{{ url_for("retrieve") }}', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({choice: idx})
+    });
+    const data = await res.json();
+
+    document.getElementById('options').innerHTML = '';
+
+    if (data.type==='question') {
+      cont.insertAdjacentHTML('beforeend',
+        `<div class="p-3 rounded-2xl bg-green-100 text-green-900 max-w-xs">
+           ${data.question}
+         </div>`);
+      data.options.forEach(opt => {
+        document.getElementById('options').insertAdjacentHTML('beforeend',
+          `<button class="opt-btn bg-indigo-600 text-white px-4 py-2 rounded">
+             ${opt}
+           </button>`);
+      });
+    }
+    else if (data.type==='final') {
+      cont.insertAdjacentHTML('beforeend',
+        `<div class="p-3 rounded-2xl bg-blue-100 text-blue-900 max-w-xs">
+           You might have <strong>${data.condition}</strong>.
+         </div>`);
+      data.tips.forEach(t => {
+        cont.insertAdjacentHTML('beforeend',
+          `<div class="p-3 rounded-2xl bg-gray-100 text-gray-900 max-w-xs">${t}</div>`);
+      });
+    }
+
+    cont.scrollTop = cont.scrollHeight;
+  });
+</script>
+{% endblock %}

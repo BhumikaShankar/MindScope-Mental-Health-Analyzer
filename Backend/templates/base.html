@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+  <title>{% block title %}{{ title or 'MindScope' }}{% endblock %}</title>
+
+  {# Allow child templates to add to <head> if needed #}
+  {% block head %}{% endblock %}
+</head>
+<body class="bg-gradient-to-br from-indigo-50 to-purple-50 min-h-screen flex flex-col relative">
+
+  <!-- Responsive Nav -->
+  {% if request.endpoint not in ['login', 'register', 'chat', 'questionnaire', 'retrieve', 'generative'] %}
+  <nav class="absolute inset-x-0 top-0 z-50 bg-white bg-opacity-70 backdrop-blur-lg">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+      <a href="{{ url_for('landing') }}" class="text-2xl font-bold text-gray-800">MindScope</a>
+
+      <!-- Hamburger button (visible on small screens) -->
+      <button id="menu-btn" class="md:hidden text-gray-800 focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+
+      <!-- Desktop menu (hidden on small screens) -->
+      <div class="hidden md:flex items-center space-x-6">
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('cohere_chat') }}" class="text-gray-800 hover:text-purple-500 transition">
+        Empathetic Chat
+      </a>
+          <a href="{{ url_for('logout_view') }}" class="text-gray-800 hover:text-blue-500 transition">Logout</a>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="text-gray-800 hover:text-blue-500 transition">Login</a>
+          <a href="{{ url_for('register') }}" class="btn-primary">Register</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Mobile menu (hidden by default, toggled by hamburger) -->
+    <div id="mobile-menu" class="md:hidden hidden px-6 pb-4 space-y-2">
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('logout_view') }}" class="block text-gray-800 hover:text-blue-500 transition">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="block text-gray-800 hover:text-blue-500 transition">Login</a>
+        <a href="{{ url_for('register') }}" class="block btn-primary">Register</a>
+      {% endif %}
+    </div>
+  </nav>
+  {% endif %}
+
+  <main class="flex-1 w-full">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script>
+    // Toggle mobile menu
+    const btn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (btn && mobileMenu) {
+      btn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    }
+  </script>
+
+  {# THIS IS CRUCIAL: allow child templates to inject page-specific JS #}
+  {% block scripts %}{% endblock %}
+</body>
+</html>

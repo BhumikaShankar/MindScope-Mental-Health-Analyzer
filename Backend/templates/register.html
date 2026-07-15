@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="auth-body">
+  <div class="auth-container">
+    <h2>Create Account ✨</h2>
+    <p class="auth-subtitle">Join us and start your self-discovery</p>
+
+    <form id="signupForm" method="post" class="auth-form">
+      <input type="text"    name="full_name"      id="fullName"        placeholder="Full Name"        required />
+      <input type="email"   name="email"          id="email"           placeholder="Email Address"    required />
+      <input type="password"name="password"       id="password"        placeholder="Password"         required />
+      <input type="password"name="confirm_password"id="confirmPassword" placeholder="Confirm Password" required />
+      <button type="submit" class="btn-primary">Sign Up</button>
+    </form>
+
+    <div id="spinner" class="spinner"></div>
+    <p id="message" class="success-text"></p>
+
+    <p class="auth-link">
+      Already have an account?
+      <a href="{{ url_for('login') }}">Login</a>
+    </p>
+  </div>
+</div>
+
+<script>
+  const form    = document.getElementById('signupForm');
+  const spinner = document.getElementById('spinner');
+  const message = document.getElementById('message');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const fullName        = document.getElementById('fullName').value.trim();
+    const email           = document.getElementById('email').value.trim();
+    const password        = document.getElementById('password').value.trim();
+    const confirmPassword = document.getElementById('confirmPassword').value.trim();
+    const emailPattern    = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!fullName) {
+      message.style.display = 'block';
+      message.style.color   = 'red';
+      message.textContent   = '❌ Please enter your name.';
+    }
+    else if (!emailPattern.test(email)) {
+      message.style.display = 'block';
+      message.style.color   = 'red';
+      message.textContent   = '❌ Please enter a valid email address.';
+    }
+    else if (password.length < 6) {
+      message.style.display = 'block';
+      message.style.color   = 'red';
+      message.textContent   = '❌ Password must be at least 6 characters.';
+    }
+    else if (password !== confirmPassword) {
+      message.style.display = 'block';
+      message.style.color   = 'red';
+      message.textContent   = '❌ Passwords do not match.';
+    }
+    else {
+      // all good → show spinner, then submit to server
+      message.style.display = 'none';
+      spinner.style.display = 'block';
+      setTimeout(() => form.submit(), 800);
+    }
+  });
+</script>
+
+{% endblock %}

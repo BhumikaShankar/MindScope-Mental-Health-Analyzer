@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <a href="{{ url_for('landing') }}" class="btn-back">← Home</a>
+
+  <div class="dashboard-container">
+    <h1>Your Total‐Score Over Time</h1>
+
+    <div class="dashboard-grid">
+      <div class="dashboard-card">
+        <h2>Daily Average Score</h2>
+        <!-- Note: ID must match the JS below -->
+        <canvas id="dailyChart"></canvas>
+      </div>
+      <div class="dashboard-card">
+        <h2>Weekly Average Score</h2>
+        <!-- Note: ID must match the JS below -->
+        <canvas id="weeklyChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    fetch('{{ url_for("api_results") }}')
+      .then(res => res.json())
+      .then(data => {
+        console.log('Dashboard data:', data);  // verify in DevTools Console
+
+        // DAILY
+        new Chart(
+          document.getElementById('dailyChart').getContext('2d'),
+          {
+            type: 'line',
+            data: {
+              labels: data.daily.map(x => x.period),
+              datasets: [{
+                label: 'Avg. Total Score',
+                data: data.daily.map(x => x.value),
+                tension: 0.4,
+                fill: true
+              }]
+            },
+            options: {
+              responsive: true,
+              scales: { y: { min: 0, max: 27, ticks: { stepSize: 3 } } }
+            }
+          }
+        );
+
+        // WEEKLY
+        new Chart(
+          document.getElementById('weeklyChart').getContext('2d'),
+          {
+            type: 'line',
+            data: {
+              labels: data.weekly.map(x => x.period),
+              datasets: [{
+                label: 'Avg. Total Score',
+                data: data.weekly.map(x => x.value),
+                tension: 0.4,
+                fill: true
+              }]
+            },
+            options: {
+              responsive: true,
+              scales: { y: { min: 0, max: 27, ticks: { stepSize: 3 } } }
+            }
+          }
+        );
+      })
+      .catch(err => console.error('Dashboard load error:', err));
+  </script>
+</body>
+</html>

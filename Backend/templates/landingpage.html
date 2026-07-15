@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <!-- Hero Section -->
+  <section class="hero fade-in-up">
+    <div class="hero-content">
+      <h1>Understand Your Mind.<br>Embrace Your Journey.</h1>
+      <p>Empower yourself with insights into your mental well-being.</p>
+      <!-- Primary Actions -->
+      <a href="{{ url_for('questionnaire') }}" class="btn-primary">
+        Take Questionnaire
+      </a>
+      <a href="{{ url_for('register') }}" class="btn-primary">Get Started</a>
+      <!--<a href="{{ url_for('dashboard') }}" class="btn-secondary" style="margin-left:1rem;">
+        View Dashboard
+      </a>-->
+    </div>
+    <div class="hero-image">
+      <img src="{{ url_for('static', filename='image1.png') }}" alt="Mental Health Illustration">
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="features fade-in-left">
+    <h2>Our Features</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <img src="https://img.icons8.com/color/96/brainstorm-skill.png" alt="Self Assessments">
+        <h3>Self Assessments</h3>
+        <p>Quick tests to understand your emotions better.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://img.icons8.com/color/96/journal.png" alt="Mood Journaling">
+        <h3>Mood Journaling</h3>
+        <p>Track your mood daily and spot trends over time.</p>
+      </div>
+      <div class="feature-card">
+        <img src="https://img.icons8.com/color/96/mind-map.png" alt="Personalized Tips">
+        <h3>Personalized Tips</h3>
+        <p>Get AI-curated mental health advice for your journey.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chat With Us Section 
+  <section id="chat" class="chat-space fade-in-up">
+    <h2>Chat with Us</h2>
+    <p>Need someone to talk to? Our empathetic chatbot is here 24/7 to listen and support you.</p>
+    <a href="{{ url_for('cohere_chat') }}" class="btn-primary">Chat Now</a>
+  </section>-->
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="testimonials">
+    <h2>What Our Users Say</h2>
+    <div class="testimonial-card">
+      <p>“MindScope gave me tools to truly understand my emotions. It’s like therapy in my pocket!”</p>
+      <h4>– Alex R.</h4>
+    </div>
+    <div class="testimonial-card">
+      <p>“The mood tracker changed my life. Highly recommend for anyone feeling overwhelmed.”</p>
+      <h4>– Jamie P.</h4>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 MindScope. All rights reserved.</p>
+  </footer>
+
+{% endblock %}

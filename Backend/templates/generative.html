@@ -1,0 +1,78 @@
+<!-- templates/generative.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Generative Chat</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="chat-container">
+    <div id="messages"></div>
+    <form id="chat-form">
+      <input id="user-input" autocomplete="off" placeholder="Type your message…" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('chat-form');
+    const messages = document.getElementById('messages');
+    const username = "{{ current_user.username }}";
+    const condition = "{{ predicted_condition }}";
+    let userTurnCount = 0;
+
+    // Initial greeting bubble on load
+    window.addEventListener('DOMContentLoaded', () => {
+      appendMessage('Bot', `Hi ${username}! How are you feeling today?`);
+    });
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const inputEl = document.getElementById('user-input');
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      userTurnCount++;
+      appendMessage('You', text);
+
+      if (userTurnCount >= 4) {
+        // Show final condition advice
+        appendMessage('Bot', `Based on your responses in questionnarie, you have severe condition. It is suggested to consult a licensed therapist. See you soon.`);
+        // Clear the text area
+        inputEl.value = '';
+        // Show lock message
+        appendMessage('Bot', '🔒 Conversation locked');
+        // Disable further input
+        inputEl.disabled = true;
+        form.querySelector('button').disabled = true;
+        return;
+      }
+
+      // Otherwise, send to server
+      fetch('/generative', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text })
+      })
+      .then(r => {
+        if (!r.ok) throw new Error('Network response was not ok');
+        return r.json();
+      })
+      .then(data => appendMessage('Bot', data.reply))
+      .catch(() => appendMessage('Bot', 'Sorry, something went wrong.'));
+
+      // Clear input for next turn
+      inputEl.value = '';
+    });
+
+    function appendMessage(sender, text) {
+      const div = document.createElement('div');
+      div.classList.add('message', sender.toLowerCase());
+      div.textContent = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+  </script>
+</body>
+</html>
