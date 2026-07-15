@@ -1,0 +1,145 @@
+/* Questionnaire Container */
+.questionnaire-container {
+    width: 90%;
+    max-width: 500px;
+    margin: 5rem auto;
+    text-align: center;
+  }
+  
+  /* Progress Bar */
+  .progress-bar-container {
+    width: 100%;
+    background: #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  
+  #progressBar {
+    height: 10px;
+    width: 0%;
+    background: linear-gradient(90deg, #7EC8E3, #A8E6CF);
+    transition: width 0.4s ease;
+  }
+  
+  /* Card Style */
+  .card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    animation: fadeInUp 0.8s ease;
+  }
+  
+  /* Question Text */
+  .card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+  
+  /* Options */
+  .options-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+  }
+  
+  .options-group label {
+    background: #f0f4f8;
+    padding: 1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: block;
+  }
+  
+  .options-group input {
+    margin-right: 10px;
+  }
+  
+  .options-group label:hover {
+    background: #d8e6f1;
+  }
+  
+  /* Navigation Buttons */
+  .card-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+  }
+  
+  .btn-primary {
+    background: #7EC8E3;
+    border: none;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .btn-primary:hover {
+    background: #6eb5d2;
+  }
+  
+  .btn-secondary {
+    background: #ccc;
+    border: none;
+    color: #333;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .btn-secondary:hover {
+    background: #bbb;
+  }
+  
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+/* Progress Text */
+#progressText {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+/* Hidden Class */
+.hidden {
+    display: none;
+  }
+  
+  /* Congratulations Screen */
+  #congratulationsScreen {
+    text-align: center;
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, #A8E6CF, #E6E6FA);
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+  }
+  
+  #congratulationsScreen h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  #congratulationsScreen p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 2rem;
+  }
+      

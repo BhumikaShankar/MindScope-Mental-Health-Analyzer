@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Signup | MindScope</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+  <div class="auth-container">
+    <h2>Create Account ✨</h2>
+    <p class="auth-subtitle">Join us and start your self-discovery</p>
+
+    <form id="signupForm" class="auth-form">
+      <input type="text" id="fullName" placeholder="Full Name" required>
+      <input type="email" id="email" placeholder="Email Address" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+      <button type="submit" class="btn-primary">Sign Up</button>
+    </form>
+
+    <div id="spinner" class="spinner"></div>
+    <p id="message" class="success-text"></p>
+
+    <p class="auth-link">Already have an account? <a href="login.html">Login</a></p>
+  </div>
+
+  <script>
+    const signupForm = document.getElementById('signupForm');
+    const message = document.getElementById('message');
+    const spinner = document.getElementById('spinner');
+
+    signupForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const isValidEmail = emailPattern.test(email);
+      const isValidPassword = password.length >= 6;
+
+      if (!isValidEmail) {
+        message.style.display = "block";
+        message.style.color = "red";
+        message.textContent = "❌ Please enter a valid email address.";
+      } else if (!isValidPassword) {
+        message.style.display = "block";
+        message.style.color = "red";
+        message.textContent = "❌ Password must be at least 6 characters.";
+      } else if (password !== confirmPassword) {
+        message.style.display = "block";
+        message.style.color = "red";
+        message.textContent = "❌ Passwords do not match.";
+      } else {
+        localStorage.setItem('mindscopeUserName', fullName);
+
+        spinner.style.display = "block";
+        message.style.display = "none";
+
+        setTimeout(() => {
+          spinner.style.display = "none";
+          message.style.display = "block";
+          message.style.color = "green";
+          message.textContent = "🎉 Account Created Successfully! Redirecting...";
+
+          setTimeout(() => {
+            window.location.href = "questionnare.html";  // ✅ Redirect to Questionnaire
+          }, 1500);
+        }, 1500);
+      }
+    });
+  </script>
+</body>
+</html>

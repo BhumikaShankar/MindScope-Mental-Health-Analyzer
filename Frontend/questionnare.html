@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MindScope | Questionnaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fdfbfb, #ebedee);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 5rem auto;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 2rem;
+      animation: fadeIn 1s ease;
+    }
+
+    #motivation {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: #7EC8E3;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 10px;
+      background: #f0f0f0;
+      border-radius: 50px;
+      margin-bottom: 1rem;
+    }
+
+    #progressBar {
+      height: 100%;
+      background: linear-gradient(to right, #7EC8E3, #A8E6CF);
+      width: 0%;
+      transition: width 0.3s ease;
+      border-radius: 50px;
+    }
+
+    #progressText {
+      text-align: center;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+
+    .options-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    label {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: 0.2s ease;
+      font-weight: 500;
+    }
+
+    label:hover {
+      background: #e6f7f4;
+      border-color: #7EC8E3;
+      transform: scale(1.01);
+    }
+
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s;
+    }
+
+    .btn-primary {
+      background: #7EC8E3;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #6ab5d2;
+    }
+
+    .btn-secondary {
+      background: #ccc;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background: #bbb;
+    }
+
+    .congrats {
+      display: none;
+      text-align: center;
+      padding: 4rem 2rem;
+      animation: fadeIn 1s ease;
+    }
+
+    .congrats h1 {
+      font-size: 2.5rem;
+      color: #333;
+    }
+
+    .congrats p {
+      font-size: 1.2rem;
+      color: #555;
+      margin-top: 1rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+      }
+
+      .buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="questionnaire">
+    <div id="motivation">You're doing great! 🌟</div>
+    <div id="progressText">0% Completed</div>
+    <div class="progress-bar-container">
+      <div id="progressBar"></div>
+    </div>
+    <h2 id="questionText">Loading question...</h2>
+    <div class="options-group" id="optionsGroup"></div>
+
+    <div class="buttons">
+      <button class="btn btn-secondary" id="prevBtn" disabled>⬅️ Back</button>
+      <button class="btn btn-primary" id="nextBtn">Next ➡️</button>
+    </div>
+  </div>
+
+  <div class="congrats" id="congratsScreen">
+    <h1>🎉 You did it!</h1>
+    <p>Thanks for completing the questionnaire!</p>
+    <p>Redirecting you to your personal Dashboard now...</p>
+  </div>
+
+  <script>
+    const questions = [
+      "🌪️ How often do you feel stressed?",
+      "😴 Do you sleep well at night?",
+      "🧑‍🤝‍🧑 Do you feel supported by friends?",
+      "😰 How often do you feel anxious?",
+      "☀️ Do you have energy in the mornings?",
+      "🌈 Do you feel optimistic about the future?",
+      "🧘 Are you able to relax easily?",
+      "🎯 Do you find it easy to focus?",
+      "🌊 Do you experience mood swings?",
+      "🎨 Do you enjoy your daily activities?",
+      "💬 Are you satisfied with your relationships?",
+      "🕒 Do you manage time well?",
+      "⏸️ Do you take breaks when needed?",
+      "💪 How much do you trust yourself?",
+      "🙏 How often do you feel grateful?"
+    ];
+
+    const motivations = [
+      "You're doing great! 🌟", "Keep going! 💪", "Almost there! 🚀", "Nice progress! 🎯",
+      "Stay strong! 💫", "One more step! 🔥", "You're awesome! 💛", "Feel the growth! 🌿"
+    ];
+
+    const options = ["Rarely", "Sometimes", "Often", "Almost Always"];
+    let current = 0;
+
+    const questionText = document.getElementById("questionText");
+    const optionsGroup = document.getElementById("optionsGroup");
+    const progressBar = document.getElementById("progressBar");
+    const progressText = document.getElementById("progressText");
+    const motivation = document.getElementById("motivation");
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
+
+    function loadQuestion(index) {
+      questionText.textContent = questions[index];
+      motivation.textContent = motivations[index % motivations.length];
+      optionsGroup.innerHTML = options.map(opt =>
+        `<label><input type="radio" name="answer" value="${opt}"> ${opt}</label>`
+      ).join('');
+      updateProgress(index);
+      prevBtn.disabled = index === 0;
+      nextBtn.textContent = index === questions.length - 1 ? "Finish 🎉" : "Next ➡️";
+    }
+
+    function updateProgress(index) {
+      const percent = Math.round((index / questions.length) * 100);
+      progressBar.style.width = `${percent}%`;
+      progressText.textContent = `${percent}% Completed`;
+    }
+
+    nextBtn.addEventListener("click", () => {
+      const selected = document.querySelector('input[name="answer"]:checked');
+      if (!selected) {
+        alert("Please select an option.");
+        return;
+      }
+
+      if (current < questions.length - 1) {
+        current++;
+        loadQuestion(current);
+      } else {
+        document.getElementById("questionnaire").style.display = "none";
+        document.getElementById("congratsScreen").style.display = "block";
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 3000);
+      }
+    });
+
+    prevBtn.addEventListener("click", () => {
+      if (current > 0) {
+        current--;
+        loadQuestion(current);
+      }
+    });
+
+    // Initial Load
+    loadQuestion(current);
+  </script>
+
+</body>
+</html>

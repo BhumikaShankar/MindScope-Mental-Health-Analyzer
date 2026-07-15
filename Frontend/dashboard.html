@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MindScope | Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-body">
+
+  <header class="header">
+    <div class="logo">MindScope</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#">Profile</a>
+      <a href="#">Logout</a>
+    </nav>
+  </header>
+
+  <main class="dashboard-main">
+    <section class="welcome-section">
+      <h1 id="welcomeText">Welcome back 👋</h1>
+      <p>Your journey to mental wellness continues.</p>
+    </section>
+
+    <section class="dashboard-grid">
+      <div class="dashboard-card mood-card">
+        <h2>Today's Mood</h2>
+        <select id="moodSelect">
+          <option value="Happy">😊 Happy</option>
+          <option value="Neutral">😐 Neutral</option>
+          <option value="Sad">😔 Sad</option>
+          <option value="Anxious">😟 Anxious</option>
+          <option value="Excited">🤩 Excited</option>
+        </select>
+        <button id="saveMood" class="btn-primary">Save Mood</button>
+      </div>
+
+      <div class="dashboard-card chart-card">
+        <h2>Your Weekly Mood</h2>
+        <canvas id="moodChart"></canvas>
+      </div>
+
+      <div class="dashboard-card tip-card">
+        <h2>Today's Tip 🌱</h2>
+        <blockquote id="dailyTip">Loading tip...</blockquote>
+      </div>
+    </section>
+  </main>
+  <!-- Chat Popup -->
+<div id="chatPopup" class="chat-popup">
+    <p>💬 Need help? Chat with us!</p>
+  </div>
+  
+  <!-- Chatbot Box -->
+  <div id="chatBox" class="chat-box">
+    <div class="chat-header">🧠 MindScope Assistant <span id="closeChat">×</span></div>
+    <div class="chat-content" id="chatContent">
+      <p class="bot-msg">Hi there! How can I support you today? 😊</p>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="userMessage" placeholder="Type your message..." />
+      <button id="sendMessage">Send</button>
+    </div>
+  </div>
+  
+
+  <script>
+    // Personalized Welcome
+    const userName = localStorage.getItem('mindscopeUserName');
+    const welcomeText = document.getElementById('welcomeText');
+    welcomeText.textContent = userName ? `Welcome back, ${userName} 👋` : "Welcome back 👋";
+
+    // Mood Chart
+    const ctx = document.getElementById('moodChart').getContext('2d');
+    const moodChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+        datasets: [{
+          label: 'Mood Score',
+          data: [3, 4, 2, 5, 4],
+          backgroundColor: 'rgba(126,200,227,0.2)',
+          borderColor: '#7EC8E3',
+          borderWidth: 3,
+          tension: 0.4,
+          fill: true,
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            min: 0,
+            max: 5,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+
+    document.getElementById('saveMood').addEventListener('click', () => {
+      const mood = document.getElementById('moodSelect').value;
+      alert(`Mood "${mood}" saved!`);
+    });
+
+    // Daily Tip
+    const tips = [
+      "Focus on the present moment.",
+      "Take deep breaths and relax your mind.",
+      "Self-care is not selfish.",
+      "Progress is progress, no matter how small."
+    ];
+    document.getElementById('dailyTip').textContent = tips[Math.floor(Math.random() * tips.length)];
+    document.getElementById('sendMessage').addEventListener('click', () => {
+  const input = document.getElementById('userMessage');
+  const message = input.value.trim();
+  if (message) {
+    const content = document.getElementById('chatContent');
+
+    // Show user message
+    const userMsg = document.createElement('p');
+    userMsg.textContent = message;
+    userMsg.style.textAlign = 'right';
+    userMsg.style.color = '#333';
+    content.appendChild(userMsg);
+    input.value = '';
+
+    // Scroll to bottom
+    content.scrollTop = content.scrollHeight;
+
+    // Smart Bot Reply
+    setTimeout(() => {
+      const botReply = document.createElement('p');
+      botReply.className = 'bot-msg';
+
+      const msg = message.toLowerCase();
+
+      if (msg.includes("sad") || msg.includes("depressed")) {
+        botReply.textContent = "I'm really sorry you're feeling this way 💙. Would you like a calming exercise or a positive thought?";
+      } else if (msg.includes("anxious") || msg.includes("panic")) {
+        botReply.textContent = "Let’s take a deep breath together 🌬️. Breathe in… hold… now breathe out slowly. You’ve got this.";
+      } else if (msg.includes("stress") || msg.includes("tired")) {
+        botReply.textContent = "Stress can be heavy 😔. Let’s pause and do something gentle. Want a quick breathing exercise?";
+      } else if (msg.includes("help") || msg.includes("support")) {
+        botReply.textContent = "I'm here for you 💛. Tell me a little more about how you're feeling, and I'll try to help.";
+      } else {
+        botReply.textContent = "Thank you for sharing 💬. I'm here to listen and support however I can.";
+      }
+
+      content.appendChild(botReply);
+      content.scrollTop = content.scrollHeight;
+    }, 700);
+  }
+});
+
+  </script>
+  <script>
+    // Show chat popup after page loads
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('chatPopup').style.display = 'block';
+      }, 2000);
+    });
+  
+    // Open chatbot when popup clicked
+    document.getElementById('chatPopup').addEventListener('click', () => {
+      document.getElementById('chatPopup').style.display = 'none';
+      document.getElementById('chatBox').style.display = 'flex';
+    });
+  
+    // Close chatbot
+    document.getElementById('closeChat').addEventListener('click', () => {
+      document.getElementById('chatBox').style.display = 'none';
+      document.getElementById('chatPopup').style.display = 'block';
+    });
+  
+    // Handle send message
+    document.getElementById('sendMessage').addEventListener('click', () => {
+      const input = document.getElementById('userMessage');
+      const message = input.value.trim();
+      if (message) {
+        const content = document.getElementById('chatContent');
+        const userMsg = document.createElement('p');
+        userMsg.textContent = message;
+        userMsg.style.textAlign = 'right';
+        userMsg.style.color = '#333';
+        content.appendChild(userMsg);
+        input.value = '';
+  
+        // Optional: add basic bot reply
+        setTimeout(() => {
+          const botReply = document.createElement('p');
+          botReply.className = 'bot-msg';
+          botReply.textContent = "Thanks for your message! We'll get back to you. 😊";
+          content.appendChild(botReply);
+          content.scrollTop = content.scrollHeight;
+        }, 500);
+      }
+    });
+    
+  </script>
+  
+  
+
+</body>
+</html>
