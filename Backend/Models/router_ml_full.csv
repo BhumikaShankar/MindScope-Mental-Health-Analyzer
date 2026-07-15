@@ -1,0 +1,301 @@
+dep_score,anx_score,ocd_score,ptsd_score,total_score,condition,engine
+14,18,1,3,36,Anxiety,retrieval
+2,20,4,4,30,Anxiety,retrieval
+11,8,9,9,37,Depression,retrieval
+14,18,11,6,49,Anxiety,retrieval
+25,11,16,12,64,Depression,generative
+27,13,1,12,53,Depression,retrieval
+25,1,2,10,38,Depression,retrieval
+7,19,15,12,53,Anxiety,retrieval
+11,5,1,15,32,PTSD,retrieval
+27,3,7,9,46,Depression,retrieval
+7,7,16,11,41,OCD,retrieval
+26,16,5,7,54,Depression,generative
+4,8,11,9,32,OCD,retrieval
+24,19,12,8,63,Depression,generative
+23,17,12,4,56,Depression,generative
+24,14,14,7,59,Depression,generative
+13,10,11,9,43,Depression,retrieval
+18,14,15,14,61,Depression,generative
+22,15,6,12,55,Depression,generative
+12,16,0,5,33,Anxiety,retrieval
+0,13,15,3,31,OCD,retrieval
+0,0,14,1,15,Self-Care Recommended,rulebased
+7,18,12,11,48,Anxiety,retrieval
+4,5,3,2,14,Self-Care Recommended,rulebased
+9,5,14,5,33,OCD,retrieval
+12,20,5,11,48,Anxiety,retrieval
+9,0,5,12,26,Self-Care Recommended,rulebased
+27,8,18,12,65,Depression,generative
+15,12,0,5,32,Depression,retrieval
+18,9,8,4,39,Depression,retrieval
+3,1,5,5,14,Self-Care Recommended,rulebased
+8,6,0,2,16,Self-Care Recommended,rulebased
+2,4,14,13,33,OCD,retrieval
+14,12,0,8,34,Depression,retrieval
+17,18,18,4,57,Anxiety,generative
+16,13,4,11,44,Depression,retrieval
+25,21,11,8,65,Depression,generative
+0,19,0,15,34,Anxiety,retrieval
+2,6,5,7,20,Self-Care Recommended,rulebased
+3,5,7,3,18,Self-Care Recommended,rulebased
+23,17,14,5,59,Depression,generative
+21,2,15,12,50,Depression,retrieval
+3,10,4,3,20,Self-Care Recommended,rulebased
+0,8,5,15,28,PTSD,retrieval
+8,3,0,3,14,Self-Care Recommended,rulebased
+6,19,8,0,33,Anxiety,retrieval
+19,3,9,2,33,Depression,retrieval
+14,12,17,9,52,OCD,retrieval
+23,18,4,9,54,Depression,generative
+24,4,9,6,43,Depression,retrieval
+5,17,18,15,55,OCD,generative
+11,8,6,11,36,Depression,retrieval
+5,19,1,10,35,Anxiety,retrieval
+17,13,17,1,48,Depression,retrieval
+10,0,13,4,27,OCD,retrieval
+3,5,0,12,20,Self-Care Recommended,rulebased
+9,2,17,8,36,OCD,retrieval
+21,2,7,13,43,Depression,retrieval
+13,8,13,0,34,Depression,retrieval
+6,8,0,11,25,Self-Care Recommended,rulebased
+24,16,6,5,51,Depression,retrieval
+21,10,15,15,61,Depression,generative
+27,20,0,11,58,Depression,generative
+25,21,16,12,74,Depression,generative
+15,7,5,11,38,Depression,retrieval
+7,11,1,0,19,Self-Care Recommended,rulebased
+15,12,17,14,58,OCD,generative
+9,4,9,11,33,PTSD,retrieval
+5,3,10,7,25,Self-Care Recommended,rulebased
+0,1,8,2,11,Self-Care Recommended,rulebased
+19,14,2,6,41,Depression,retrieval
+27,19,11,1,58,Depression,generative
+5,2,18,14,39,OCD,retrieval
+18,12,12,3,45,Depression,retrieval
+2,0,0,7,9,Self-Care Recommended,rulebased
+14,3,12,7,36,Depression,retrieval
+5,5,12,2,24,Self-Care Recommended,rulebased
+0,14,0,4,18,Self-Care Recommended,rulebased
+9,2,6,11,28,PTSD,retrieval
+5,7,14,9,35,OCD,retrieval
+27,19,7,12,65,Depression,generative
+13,12,7,9,41,Depression,retrieval
+11,1,9,13,34,PTSD,retrieval
+4,12,3,15,34,PTSD,retrieval
+23,7,6,2,38,Depression,retrieval
+21,15,7,12,55,Depression,generative
+21,13,4,14,52,Depression,retrieval
+19,10,16,7,52,Depression,retrieval
+7,14,2,13,36,Anxiety,retrieval
+19,2,4,2,27,Depression,retrieval
+0,16,7,15,38,Anxiety,retrieval
+18,14,1,1,34,Depression,retrieval
+0,15,11,4,30,Anxiety,retrieval
+2,19,14,14,49,Anxiety,retrieval
+9,12,18,14,53,OCD,retrieval
+16,3,17,7,43,OCD,retrieval
+15,12,13,2,42,Depression,retrieval
+11,19,3,4,37,Anxiety,retrieval
+18,5,5,2,30,Depression,retrieval
+15,15,16,1,47,OCD,retrieval
+2,14,13,10,39,Anxiety,retrieval
+4,8,8,2,22,Self-Care Recommended,rulebased
+15,4,2,11,32,Depression,retrieval
+22,0,0,1,23,Self-Care Recommended,rulebased
+8,4,13,11,36,OCD,retrieval
+23,21,13,9,66,Depression,generative
+16,12,2,8,38,Depression,retrieval
+9,3,17,9,38,OCD,retrieval
+4,14,1,9,28,Anxiety,retrieval
+8,10,15,6,39,OCD,retrieval
+18,17,2,6,43,Depression,retrieval
+13,20,10,8,51,Anxiety,retrieval
+2,16,16,11,45,Anxiety,retrieval
+24,1,14,10,49,Depression,retrieval
+5,1,10,3,19,Self-Care Recommended,rulebased
+6,4,2,11,23,Self-Care Recommended,rulebased
+14,15,4,2,35,Anxiety,retrieval
+10,11,11,3,35,Anxiety,retrieval
+17,11,0,5,33,Depression,retrieval
+4,3,9,7,23,Self-Care Recommended,rulebased
+18,1,11,9,39,Depression,retrieval
+22,10,11,9,52,Depression,retrieval
+14,16,10,4,44,Anxiety,retrieval
+12,14,15,5,46,OCD,retrieval
+16,6,4,11,37,Depression,retrieval
+5,4,10,14,33,PTSD,retrieval
+6,16,3,13,38,Anxiety,retrieval
+23,15,1,0,39,Depression,retrieval
+1,7,6,9,23,Self-Care Recommended,rulebased
+19,14,7,4,44,Depression,retrieval
+4,8,2,0,14,Self-Care Recommended,rulebased
+20,8,11,4,43,Depression,retrieval
+20,10,4,3,37,Depression,retrieval
+25,15,18,4,62,Depression,generative
+0,19,6,10,35,Anxiety,retrieval
+14,0,16,0,30,OCD,retrieval
+8,17,1,4,30,Anxiety,retrieval
+27,17,4,8,56,Depression,generative
+0,20,12,11,43,Anxiety,retrieval
+18,10,10,7,45,Depression,retrieval
+20,0,15,12,47,Depression,retrieval
+3,11,8,2,24,Self-Care Recommended,rulebased
+3,21,16,8,48,Anxiety,retrieval
+15,15,6,3,39,Depression,retrieval
+10,10,15,10,45,OCD,retrieval
+23,5,2,13,43,Depression,retrieval
+2,0,0,12,14,Self-Care Recommended,rulebased
+2,15,2,8,27,Anxiety,retrieval
+25,8,6,8,47,Depression,retrieval
+21,7,1,4,33,Depression,retrieval
+7,6,7,13,33,PTSD,retrieval
+6,3,5,12,26,Self-Care Recommended,rulebased
+3,0,7,0,10,Self-Care Recommended,rulebased
+19,16,6,8,49,Depression,retrieval
+1,9,4,10,24,Self-Care Recommended,rulebased
+14,5,16,13,48,OCD,retrieval
+10,15,16,9,50,OCD,retrieval
+0,10,17,6,33,OCD,retrieval
+11,4,16,15,46,OCD,retrieval
+27,15,18,3,63,Depression,generative
+3,7,3,7,20,Self-Care Recommended,rulebased
+12,3,3,5,23,Self-Care Recommended,rulebased
+17,3,13,1,34,Depression,retrieval
+22,13,6,10,51,Depression,retrieval
+26,4,9,6,45,Depression,retrieval
+21,12,18,0,51,Depression,retrieval
+14,3,11,12,40,Depression,retrieval
+3,12,10,2,27,Anxiety,retrieval
+8,16,13,14,51,Anxiety,retrieval
+6,1,2,0,9,Self-Care Recommended,rulebased
+25,16,7,0,48,Depression,retrieval
+19,4,1,5,29,Depression,retrieval
+23,5,18,13,59,Depression,generative
+6,18,1,9,34,Anxiety,retrieval
+16,13,2,11,42,Depression,retrieval
+7,4,3,7,21,Self-Care Recommended,rulebased
+10,3,3,9,25,Self-Care Recommended,rulebased
+7,10,18,0,35,OCD,retrieval
+15,3,4,7,29,Depression,retrieval
+16,16,15,8,55,Depression,generative
+13,1,10,2,26,Self-Care Recommended,rulebased
+6,19,14,10,49,Anxiety,retrieval
+12,9,17,7,45,OCD,retrieval
+14,1,13,4,32,Depression,retrieval
+13,15,13,11,52,Anxiety,retrieval
+16,8,10,14,48,Depression,retrieval
+0,5,17,7,29,OCD,retrieval
+0,20,2,15,37,Anxiety,retrieval
+23,12,6,8,49,Depression,retrieval
+8,14,14,9,45,Anxiety,retrieval
+2,19,3,2,26,Self-Care Recommended,rulebased
+25,4,2,6,37,Depression,retrieval
+3,14,1,14,32,Anxiety,retrieval
+17,1,17,13,48,Depression,retrieval
+22,15,3,13,53,Depression,retrieval
+6,20,8,6,40,Anxiety,retrieval
+13,7,8,5,33,Depression,retrieval
+18,13,3,8,42,Depression,retrieval
+7,2,2,0,11,Self-Care Recommended,rulebased
+13,1,16,13,43,OCD,retrieval
+2,21,1,7,31,Anxiety,retrieval
+4,3,1,3,11,Self-Care Recommended,rulebased
+7,21,2,0,30,Anxiety,retrieval
+24,5,0,7,36,Depression,retrieval
+2,12,12,1,27,Anxiety,retrieval
+20,1,12,13,46,Depression,retrieval
+1,18,18,3,40,Anxiety,retrieval
+2,15,3,1,21,Self-Care Recommended,rulebased
+25,2,18,3,48,Depression,retrieval
+3,20,17,12,52,Anxiety,retrieval
+18,10,4,11,43,Depression,retrieval
+12,7,17,8,44,OCD,retrieval
+16,9,15,14,54,Depression,generative
+18,15,15,2,50,Depression,retrieval
+0,7,7,10,24,Self-Care Recommended,rulebased
+7,6,17,7,37,OCD,retrieval
+10,6,0,0,16,Self-Care Recommended,rulebased
+4,0,3,5,12,Self-Care Recommended,rulebased
+4,5,18,7,34,OCD,retrieval
+10,3,12,15,40,PTSD,retrieval
+9,18,0,7,34,Anxiety,retrieval
+6,18,7,9,40,Anxiety,retrieval
+4,17,9,12,42,Anxiety,retrieval
+11,16,5,6,38,Anxiety,retrieval
+20,12,8,12,52,Depression,retrieval
+16,4,11,1,32,Depression,retrieval
+17,9,18,0,44,OCD,retrieval
+26,18,13,13,70,Depression,generative
+16,9,16,11,52,Depression,retrieval
+10,21,15,7,53,Anxiety,retrieval
+4,6,12,14,36,PTSD,retrieval
+23,12,5,4,44,Depression,retrieval
+0,14,7,11,32,Anxiety,retrieval
+19,0,4,8,31,Depression,retrieval
+14,14,4,4,36,Depression,retrieval
+27,14,6,11,58,Depression,generative
+26,8,4,0,38,Depression,retrieval
+22,1,9,1,33,Depression,retrieval
+1,11,2,2,16,Self-Care Recommended,rulebased
+25,13,18,6,62,Depression,generative
+7,7,18,6,38,OCD,retrieval
+6,5,1,5,17,Self-Care Recommended,rulebased
+6,9,18,6,39,OCD,retrieval
+27,11,11,3,52,Depression,retrieval
+21,20,5,0,46,Depression,retrieval
+13,19,18,9,59,Anxiety,generative
+22,4,4,9,39,Depression,retrieval
+25,12,8,9,54,Depression,generative
+19,0,16,11,46,Depression,retrieval
+20,3,7,7,37,Depression,retrieval
+10,4,0,7,21,Self-Care Recommended,rulebased
+16,1,1,11,29,Depression,retrieval
+16,7,9,9,41,Depression,retrieval
+7,20,6,9,42,Anxiety,retrieval
+12,11,13,1,37,OCD,retrieval
+25,21,16,3,65,Depression,generative
+14,21,8,3,46,Anxiety,retrieval
+16,0,15,11,42,Depression,retrieval
+14,9,18,0,41,OCD,retrieval
+2,0,4,9,15,Self-Care Recommended,rulebased
+2,17,9,14,42,Anxiety,retrieval
+4,16,16,10,46,Anxiety,retrieval
+24,0,5,5,34,Depression,retrieval
+25,8,1,3,37,Depression,retrieval
+27,8,4,7,46,Depression,retrieval
+20,5,11,12,48,Depression,retrieval
+4,7,9,0,20,Self-Care Recommended,rulebased
+1,18,8,6,33,Anxiety,retrieval
+10,9,7,5,31,Depression,retrieval
+10,8,2,2,22,Self-Care Recommended,rulebased
+21,4,0,0,25,Self-Care Recommended,rulebased
+16,16,11,13,56,Depression,generative
+23,20,7,9,59,Depression,generative
+4,5,2,4,15,Self-Care Recommended,rulebased
+20,13,3,5,41,Depression,retrieval
+0,20,15,6,41,Anxiety,retrieval
+2,18,17,14,51,Anxiety,retrieval
+4,19,1,5,29,Anxiety,retrieval
+18,9,11,7,45,Depression,retrieval
+8,12,17,14,51,OCD,retrieval
+14,0,13,15,42,PTSD,retrieval
+7,13,7,4,31,Anxiety,retrieval
+27,18,11,5,61,Depression,generative
+19,14,14,12,59,Depression,generative
+9,18,16,4,47,Anxiety,retrieval
+1,12,7,1,21,Self-Care Recommended,rulebased
+20,9,6,13,48,Depression,retrieval
+9,10,11,12,42,PTSD,retrieval
+10,10,17,14,51,OCD,retrieval
+3,12,0,7,22,Self-Care Recommended,rulebased
+27,13,5,2,47,Depression,retrieval
+24,2,2,10,38,Depression,retrieval
+0,4,9,5,18,Self-Care Recommended,rulebased
+22,0,18,7,47,Depression,retrieval
+3,13,15,14,45,OCD,retrieval
+5,16,4,14,39,Anxiety,retrieval
+19,21,0,7,47,Anxiety,retrieval
+20,11,11,4,46,Depression,retrieval
+18,5,0,6,29,Depression,retrieval
+22,21,18,8,69,Depression,generative
